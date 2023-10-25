@@ -13,7 +13,7 @@ const Index: React.FC = () => {
   const MenuList = [
     {key:'1',label:  (
         <a href="/books"  rel="noopener noreferrer"> 书籍 </a>
-),title:"Book"}
+),title:"Book"},
     {key:'2',label:'药方',children:[
         {key:'10',label:'药方列表'},
         {key:'11',label:'药方查询'}
