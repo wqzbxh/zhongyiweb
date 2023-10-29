@@ -2,8 +2,5 @@
 export interface IPagination {
     search: string|number;
     page: number;
-    pagesize: number;
-    sortBy: string;
-    [key:string]:any,
-    sortOrder: 'asc' | 'desc';
+    limit: number;
   }
