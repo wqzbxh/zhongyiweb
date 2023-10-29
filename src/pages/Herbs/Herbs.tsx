@@ -1,33 +1,17 @@
 import { EllipsisOutlined, PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable, TableDropdown } from '@ant-design/pro-components';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import request from 'umi-request';
 import { Button, Form,Dropdown, Input, InputNumber, Modal, Popconfirm, Space, Table, Tooltip, Typography } from 'antd';
-import api, { ApiGetHerbs } from '../../api';
+import api, { ApiGetHerbs, ApiGetHerbsDetail } from '../../api';
+import HerbsDatail from './HerbsDetail';
+import { Herb, HerbsInterface } from '../../interface.tsx/Iherbs';
 
 
 
 
-interface HerbsInterface {
-  common_name: string;
-  id: string;
-  other_names: string;
-  scientific_name: string;
-  medicinal_smell_id: string;
-  character_id: string;
-  toxicity_id: string;
-  book_id: number;
-  efficacy: string;
-  origin: string | null;
-  type: string;
-  created_at: string;
-  book_name: string;
-  medicinal_smell_name: string;
-  medicine_character_name: string;
-}
-
-
+var title = '';
 const columns: ProColumns<HerbsInterface>[] = [
   {
     title: 'ID',
@@ -50,23 +34,58 @@ const columns: ProColumns<HerbsInterface>[] = [
     title: '味',
     dataIndex: 'medicinal_smell_name',
     width: '5%',
-    filters: [
-      { text: '甘', value: '1' },
-      { text: '涩', value: '2' },
-    ],
     ellipsis: true,
+    filters: true,
+    onFilter: true,
+    search:false,
+    valueType: 'select',
+    valueEnum: {
+      all: { text: '超长'.repeat(50) },
+      open: {
+        text: '未解决',
+        status: 'Error',
+      },
+      closed: {
+        text: '已解决',
+        status: 'Success',
+        disabled: true,
+      },
+      processing: {
+        text: '解决中',
+        status: 'Processing',
+      },
+    },
   },
   {
     title: '性状',
     dataIndex: 'medicine_character_name',
     width: '5%',
-    ellipsis: true,
+    ellipsis: true, filters: true,
+    onFilter: true,
+    search:false,
+    valueType: 'select',
+    valueEnum: {
+      open: {
+        text: '微寒',
+        status: 'Error',
+      },
+      closed: {
+        text: '温',
+        status: 'Success',
+        disabled: true,
+      },
+      processing: {
+        text: '热',
+        status: 'Processing',
+      },
+    },
   },
   {
     title: '毒性',
     dataIndex: 'toxicity_name',
     width: '5%',
     ellipsis: true,
+    search:false,
   },
   {
     title: '功效',
@@ -82,6 +101,7 @@ const columns: ProColumns<HerbsInterface>[] = [
   {
     title: '来源',
     dataIndex: 'book_name',
+    search:false,
     width: '10%',
     ellipsis: true,
   },
@@ -117,9 +137,11 @@ const columns: ProColumns<HerbsInterface>[] = [
       >
         编辑
       </a>,
-      <a href={record.id} target="_blank" rel="noopener noreferrer" key="view">
+       <Space>
+        <Typography.Link  onClick={() => detail(record)}>
         查看
-      </a>,
+      </Typography.Link></Space>
+   ,
       <TableDropdown
         key="actionGroup"
         onSelect={() => action?.reload()}
@@ -131,9 +153,35 @@ const columns: ProColumns<HerbsInterface>[] = [
     ],
   },
 ];
+const detail= async (record:HerbsInterface)=>{
+const HerbData = await ApiGetHerbsDetail({id:record.id}, 'GET');
+Modal.info({
+title: record.common_name,
+width:'70%',
+content: (
+  <>
+       {HerbData.data.data ? (
+      <HerbsDatail record={HerbData.data.data} />
+    ) : (
+      <p>Loading...</p>
+    )}
+  </>
+),
+});
+}
+
+
 
 export default  function Herbs() {
   const actionRef = useRef<ActionType>();
+
+
+  const [herbsdata,setHerbsData]=useState<Herb>();
+
+
+
+
+
   return (
     <ProTable<HerbsInterface>
       columns={columns}
@@ -179,7 +227,7 @@ export default  function Herbs() {
         },
       }}
       pagination={{
-        pageSize: 5,
+        pageSize: 10,
         onChange: (page) => console.log(page),
       }}
       dateFormatter="string"

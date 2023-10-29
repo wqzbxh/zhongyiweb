@@ -3,6 +3,7 @@ import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import Books from './Books/Books';
 import Herbs from '../Herbs/Herbs';
+import Prescription from '../Prescription/Prescription';
 
 const { Header, Content, Footer } = Layout;
 
@@ -18,14 +19,15 @@ const Index: React.FC = () => {
       ), title: "Book"
     },
     {
-      key: '2', label: '药材', children: [
-        {
-          key: '10', label: (
-            <a href="/herbs" rel="noopener noreferrer"> 药材 </a>
-          ),
-        },
-        { key: '11', label: '药方查询' }
-      ]
+      key: '2', label: (
+        <a href="/herbs" rel="noopener noreferrer"> 药材 </a>
+      ),
+    },
+    {
+      key: '3', label: (
+        <a href="/prescription" rel="noopener noreferrer"> 药方查询 </a>
+      ), title: "Book"
+  
     },
   ]
   return (
@@ -36,7 +38,14 @@ const Index: React.FC = () => {
           theme="dark"
           mode="horizontal"
           defaultSelectedKeys={['2']}
-          items={MenuList}
+          // items={MenuList}
+          items={MenuList.map((_, index) => {
+            const key = index + 1;
+            return {
+              key,
+              label: _.label,
+            };
+          })}
         />
       </Header>
       <Content style={{ padding: '0 50px' }}>
@@ -50,11 +59,14 @@ const Index: React.FC = () => {
             <Routes>
               <Route path="/books" element={<Books />} />
               <Route path="/herbs" element={<Herbs />} />
+              <Route path="/prescription" element={<Prescription />} />
             </Routes>
           </BrowserRouter>
         </div>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>中医  Design ©2023 Created by 海洋</Footer>
+      <Footer  style={{
+          textAlign: 'center' ,
+        }} >中医  Design ©2023 Created by 海洋</Footer>
     </Layout>
   );
 };
