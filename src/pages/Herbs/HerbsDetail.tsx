@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Col, Row, Typography, Space } from 'antd';
-import { Herb, HerbsInterface } from '../../interface.tsx/Iherbs';
+import { Herb, HerbsInterface } from '../../interface/Iherbs';
 
 const gridStyle: React.CSSProperties = {
   width: '25%',

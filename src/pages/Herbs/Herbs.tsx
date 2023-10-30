@@ -6,7 +6,7 @@ import request from 'umi-request';
 import { Button, Form,Dropdown, Input, InputNumber, Modal, Popconfirm, Space, Table, Tooltip, Typography } from 'antd';
 import api, { ApiGetHerbs, ApiGetHerbsDetail } from '../../api';
 import HerbsDatail from './HerbsDetail';
-import { Herb, HerbsInterface } from '../../interface.tsx/Iherbs';
+import { Herb, HerbsInterface } from '../../interface/Iherbs';
 
 
 
@@ -90,9 +90,9 @@ const columns: ProColumns<HerbsInterface>[] = [
   {
     title: '功效',
     width: '30%',
+    dataIndex: 'efficacy',
     ellipsis: true,
     copyable: true,
-    dataIndex: 'efficacy',
     render: (efficacy:any) => (
       <Tooltip placement="topLeft" title={efficacy}>
         {efficacy}
@@ -174,7 +174,6 @@ content: (
 
 export default  function Herbs() {
   const actionRef = useRef<ActionType>();
-
 
   const [herbsdata,setHerbsData]=useState<Herb>();
 

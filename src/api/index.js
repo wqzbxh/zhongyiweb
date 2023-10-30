@@ -15,6 +15,7 @@ const Host = 'http://127.0.0.1:55555/api'/**
 export const ApiGetBooks = (data, method) => ajax(Host + "/get_book_list", data, method, false);
 export const ApiGetHerbs = (data, method) => ajax(Host + "/get_herbs_list", data, method, false);
 export const ApiGetHerbsDetail = (data, method) => ajax(Host + "/get_herbs_detail", data, method, false);
+export const ApiSearchPrescription = (data, method) => ajax(Host + "/search_prescription", data, method, false);
 
 
 // Global Core Setting List
