@@ -1,7 +1,9 @@
 import React from 'react';
-import { Space, Table, Tag, Tooltip } from 'antd';
+import { Modal, Space, Table, Tag, Tooltip } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { PrescriptionInterface } from '../../interface/Iprescription';
+import { ApiGetPrescriptionDetail } from '../../api';
+import PrescriptionDetail from './PrescriptionDetail';
 
 interface ComponentInterface {
   presriptionList:PrescriptionInterface[]
@@ -48,6 +50,23 @@ const columns: ColumnsType<PrescriptionInterface> = [
   },
 ];
 
+
+const detail= async (record:PrescriptionInterface)=>{
+  const PrescriptionDetal = await ApiGetPrescriptionDetail({prescription_idid:record.prescription_id}, 'GET');
+  Modal.info({
+  title: record.prescription_name,
+  width:'70%',
+  content: (
+    <>
+         {PrescriptionDetal.data.data ? (
+        <PrescriptionDetail record={PrescriptionDetal.data.data} />
+      ) : (
+        <p>Loading...</p>
+      )}
+    </>
+  ),
+  });
+  }
 
 const PrescriptionList: React.FC<ComponentInterface> = ({ presriptionList }) => (
   <>

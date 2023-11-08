@@ -17,6 +17,7 @@ export const ApiGetHerbs = (data, method) => ajax(Host + "/get_herbs_list", data
 export const ApiGetHerbsDetail = (data, method) => ajax(Host + "/get_herbs_detail", data, method, false);
 export const ApiSearchPrescription = (data, method) => ajax(Host + "/search_prescription", data, method, false);
 
+export const ApiGetPrescriptionDetail = (data, method) => ajax(Host + "/get_prescription_detail", data, method, false);
 
 // Global Core Setting List
 export default {
