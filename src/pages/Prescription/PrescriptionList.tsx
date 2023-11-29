@@ -4,6 +4,7 @@ import type { ColumnsType } from 'antd/es/table';
 import { PrescriptionInterface } from '../../interface/Iprescription';
 import { ApiGetPrescriptionDetail } from '../../api';
 import PrescriptionDetail from './PrescriptionDetail';
+import { get } from 'http';
 
 interface ComponentInterface {
   presriptionList:PrescriptionInterface[]
@@ -43,16 +44,19 @@ const columns: ColumnsType<PrescriptionInterface> = [
     title: 'Action',
     key: 'action',
     render: (_, record) => (
-      <Space size="middle">
+      <Space size="middle" onClick={getDetail(record)}>
         <a>detail</a>
       </Space>
     ),
   },
 ];
 
+const getDetail = (record:PrescriptionInterface) => {
+  return () => detail(record);
+}
 
 const detail= async (record:PrescriptionInterface)=>{
-  const PrescriptionDetal = await ApiGetPrescriptionDetail({prescription_idid:record.prescription_id}, 'GET');
+  const PrescriptionDetal = await ApiGetPrescriptionDetail({prescription_id:record.prescription_id}, 'GET');
   Modal.info({
   title: record.prescription_name,
   width:'70%',

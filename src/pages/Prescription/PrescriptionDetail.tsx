@@ -16,24 +16,27 @@ const PrescriptionDetail: React.FC<PrescriptionDetail> = ({ record }) => (
 
 <>
 
+<Text strong>
+      配方:
+    </Text>
 
         {record.prescription_sku.length>0&& record.prescription_sku.map((item,index)=>{
           return (
-          <Row gutter={16} className='mt-2'>
-            <Space >
-              <Text strong>《{item.common_name}》</Text>
+          <>
+              <Text >《{item.common_name}》</Text>
               <Text>{item.dosage_number} </Text>
-              <Text>{item.unit_symbol} </Text>
-            </Space> </Row>
+              <Text>{item.unit_symbol} , </Text>
+          </>
           )
         })}
-        {record.prescription_sku.length>0&& record.prescription_sku.map((item,index)=>{
+
+        
+        {record.conditions_retrult.length>0&& record.conditions_retrult.map((item,index)=>{
           return (
-          <Row gutter={16} className='mt-2'>
+          <Row  gutter={16} className='mt-2'>
             <Space >
-              <Text strong>《{item.common_name}》</Text>
-              <Text>{item.dosage_number} </Text>
-              <Text>{item.unit_symbol} </Text>
+              <Text>主治 {index+1} : </Text>
+              <Text>{item.symptoms} </Text>
             </Space> </Row>
           )
         })}

@@ -28,6 +28,11 @@ const Index: React.FC = () => {
         <a href="/prescription" rel="noopener noreferrer"> 药方查询 </a>
       ), title: "Book"
   
+    }, {
+      key: '4', label: (
+        <a href="/prescription" rel="noopener noreferrer"> 病症查询 </a>
+      ), title: "Book"
+  
     },
   ]
   return (

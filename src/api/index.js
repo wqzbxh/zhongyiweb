@@ -16,8 +16,14 @@ export const ApiGetBooks = (data, method) => ajax(Host + "/get_book_list", data,
 export const ApiGetHerbs = (data, method) => ajax(Host + "/get_herbs_list", data, method, false);
 export const ApiGetHerbsDetail = (data, method) => ajax(Host + "/get_herbs_detail", data, method, false);
 export const ApiSearchPrescription = (data, method) => ajax(Host + "/search_prescription", data, method, false);
-
 export const ApiGetPrescriptionDetail = (data, method) => ajax(Host + "/get_prescription_detail", data, method, false);
+/**
+ * 获取药方子项
+ * @param {*} data 
+ * @param {*} method 
+ * @returns 
+ */
+export const ApiGetPrescriptionBySymptoms = (data, method) => ajax(Host + "/get_prescription_by_symptoms", data, method, false);
 
 // Global Core Setting List
 export default {
