@@ -8,7 +8,7 @@ import ajax from "./ajax";
 
 // Timetrack service
 
-const Host = 'http://127.0.0.1:55555/api'/**
+const Host = 'http://zhongyi.shen-guan.com/api'/**
  * @param {*} method 
  * @returns 
  */

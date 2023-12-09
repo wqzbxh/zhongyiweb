@@ -24,3 +24,12 @@ export interface ConditionData {
   conditions_retrult: Symptom[];
   prescription_sku: Herb[];
 }
+
+
+export interface PrescriptionSearch {
+  symptoms: string;
+  prescription_id: number;
+  prescription_name: string;
+  method_name: string;
+  pl: string;
+}
